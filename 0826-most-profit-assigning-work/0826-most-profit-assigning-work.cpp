@@ -3,15 +3,18 @@ public:
     int maxProfitAssignment(vector<int>& difficulty, vector<int>& profit, vector<int>& worker) {
         const int N = difficulty.size(), M = worker.size();
 
+        // time: O(N)
         vector<pair<int, int>> jobs;
         for(int i = 0; i < N; i++) {
             pair<int, int> p({profit[i], difficulty[i]});
             jobs.push_back(p);
         }
         
+        // time: O(NlogN + MlogM)
         sort(jobs.begin(), jobs.end());
         sort(worker.begin(), worker.end());
 
+        // time: O(N + M)
         int jobId = N - 1, workerId = M - 1, ans = 0;
         while(jobId >= 0 && workerId >= 0) {
             if(worker[workerId] >= jobs[jobId].second) {
