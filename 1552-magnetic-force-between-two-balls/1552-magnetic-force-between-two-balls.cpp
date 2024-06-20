@@ -9,7 +9,7 @@ public:
         sort(position.begin(), position.end());
 
         // 2. Binary search the the max `minForce` bwtween 0 to `position[N-1]` - `position[0]`
-        int left = position[0], right = position[N-1], mid, ans = INT_MIN;
+        int left = 0, right = position[N-1], mid, ans = INT_MIN;
         while(left <= right) {
             mid = (left + right) / 2;
 
