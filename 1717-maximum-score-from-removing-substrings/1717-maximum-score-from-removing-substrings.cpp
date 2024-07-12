@@ -1,15 +1,30 @@
 class Solution {
 public:
     int maximumGain(string s, int x, int y) {
-        stack<char> st;
         int ans = 0;
+
+        if(x >= y) {
+            ans += remove(s, x, "ab");
+            ans += remove(s, y, "ba");
+        }
+        else {
+            ans += remove(s, y, "ba");
+            ans += remove(s, x, "ab");
+        }
+
+        return ans;
+    }
+
+    int remove(string& s, int point, string pattern) {
+        int score = 0;
+        stack<char> st;
 
         for(int i = 0; i < s.size(); i++) {
             char c = s[i];
 
-            if(c == 'a' && !st.empty() && st.top() == 'b') {
+            if(!st.empty() && st.top() == pattern[0] && c == pattern[1]) {
                 st.pop();
-                ans += max(x, y);
+                score += point;
             }
             else {
                 st.push(c);
@@ -23,19 +38,7 @@ public:
         }
         reverse(s.begin(), s.end());
 
-        for(int i = 0; i < s.size(); i++) {
-            char c = s[i];
-
-            if(c == 'b' && !st.empty() && st.top() == 'a') {
-                st.pop();
-                ans += min(x, y);
-            }
-            else {
-                st.push(c);
-            }
-        }
-
-        return ans;
+        return score;
     }
 };
 
